@@ -1,3 +1,13 @@
+# Fork Changes
+
+Create file `credentials.txt` with the following two lines:
+
+```
+<client id>
+<client secret>
+```
+
+
 # Spotuino (Controlling Spotify with Arduino)
 
 - This project is simply made to demonstrate the functionality of the Arduino Uno with the Python language. The project controls the Spotify app using an IR remote and receiver. The Arduino communicates keywords (e.g. pause, forward, and back) based on the IR receiver back to the Python script through the COM3 port, which activates the PyAutoGui's functions. A 1602 LCD is used to display the song's status to the user.
