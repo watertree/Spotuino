@@ -133,7 +133,7 @@ void loop() {
     lcd.print("spotify");
 
     if(digitalRead(Yellow)==HIGH){
-      Serial.println("Pausing/Starting if");
+      Serial.println("play_pause");
       lcd.clear();
       lcd.setCursor(0, 0);
       lcd.print("spotify");      
@@ -144,7 +144,7 @@ void loop() {
     }
 
     if(digitalRead(RedOne)==HIGH){
-      Serial.println("Going Back if");
+      Serial.println("back");
 
       lcd.clear();
       lcd.setCursor(0, 0);
@@ -158,7 +158,7 @@ void loop() {
     }
 
     if(digitalRead(RedTwo)==HIGH){
-      Serial.println("Going Forward if");
+      Serial.println("forward");
       lcd.clear();
       lcd.setCursor(0, 0);
       lcd.print("spotify");     
