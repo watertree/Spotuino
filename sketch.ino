@@ -134,13 +134,8 @@ void loop() {
 
     if (digitalRead(Yellow) == HIGH) {
       Serial.println("play_pause");
-      lcd.clear();
-      lcd.setCursor(0, 0);
-      lcd.print("Play/Pause      ");
 
-      delay(100); // Allow time for serial response
-
-      // Read response from serial (track name)
+      delay(100);
       String msg = "";
       unsigned long start = millis();
       while (millis() - start < 1000) {
@@ -150,24 +145,23 @@ void loop() {
         }
       }
 
-      lcd.setCursor(0, 1);
-      lcd.print("                "); // clear line
-      lcd.setCursor(0, 1);
-      lcd.print(msg.substring(0, 16));
+      int sepIndex = msg.indexOf('|');
+      String state = msg.substring(0, sepIndex);
+      String track = msg.substring(sepIndex + 1);
 
-      delay(300); // debounce
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(state == "play" ? "Play            " : "Pause           ");
+      lcd.setCursor(0, 1);
+      lcd.print(track.substring(0, 16));
+
+      delay(300);
     }
-
 
     if (digitalRead(RedOne) == HIGH) {
       Serial.println("back");
 
-      lcd.clear();
-      lcd.setCursor(0, 0);
-      lcd.print("Back            ");
-
       delay(100);
-
       String msg = "";
       unsigned long start = millis();
       while (millis() - start < 1000) {
@@ -177,10 +171,15 @@ void loop() {
         }
       }
 
+      int sepIndex = msg.indexOf('|');
+      String state = msg.substring(0, sepIndex);
+      String track = msg.substring(sepIndex + 1);
+
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Back            ");
       lcd.setCursor(0, 1);
-      lcd.print("                ");
-      lcd.setCursor(0, 1);
-      lcd.print(msg.substring(0, 16));
+      lcd.print(track.substring(0, 16));
 
       delay(300);
     }
@@ -188,12 +187,7 @@ void loop() {
     if (digitalRead(RedTwo) == HIGH) {
       Serial.println("forward");
 
-      lcd.clear();
-      lcd.setCursor(0, 0);
-      lcd.print("Forward         ");
-
       delay(100);
-
       String msg = "";
       unsigned long start = millis();
       while (millis() - start < 1000) {
@@ -203,10 +197,15 @@ void loop() {
         }
       }
 
+      int sepIndex = msg.indexOf('|');
+      String state = msg.substring(0, sepIndex);
+      String track = msg.substring(sepIndex + 1);
+
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Forward         ");
       lcd.setCursor(0, 1);
-      lcd.print("                ");
-      lcd.setCursor(0, 1);
-      lcd.print(msg.substring(0, 16));
+      lcd.print(track.substring(0, 16));
 
       delay(300);
     }
