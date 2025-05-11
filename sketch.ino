@@ -122,6 +122,8 @@ void loop() {
     if(digitalRead(Green)== HIGH){
       GS = true;
       lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("spotify");
       delay(500);
     }
     else{
@@ -129,44 +131,86 @@ void loop() {
     }
   }
   else{
-    lcd.setCursor(0, 0);
-    lcd.print("spotify");
 
-    if(digitalRead(Yellow)==HIGH){
+    if (digitalRead(Yellow) == HIGH) {
       Serial.println("play_pause");
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("spotify");      
+      lcd.print("Play/Pause      ");
+
+      delay(100); // Allow time for serial response
+
+      // Read response from serial (track name)
+      String msg = "";
+      unsigned long start = millis();
+      while (millis() - start < 1000) {
+        if (Serial.available()) {
+          msg = Serial.readStringUntil('\n');
+          break;
+        }
+      }
+
       lcd.setCursor(0, 1);
-      lcd.print("Pausing/Starting");
-      delay(50);
-      
+      lcd.print("                "); // clear line
+      lcd.setCursor(0, 1);
+      lcd.print(msg.substring(0, 16));
+
+      delay(300); // debounce
     }
 
-    if(digitalRead(RedOne)==HIGH){
+
+    if (digitalRead(RedOne) == HIGH) {
       Serial.println("back");
 
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("spotify");     
-      lcd.setCursor(0, 1);
-      lcd.print("Going Back");
-      
-      delay(50);
+      lcd.print("Back            ");
 
-      
+      delay(100);
+
+      String msg = "";
+      unsigned long start = millis();
+      while (millis() - start < 1000) {
+        if (Serial.available()) {
+          msg = Serial.readStringUntil('\n');
+          break;
+        }
+      }
+
+      lcd.setCursor(0, 1);
+      lcd.print("                ");
+      lcd.setCursor(0, 1);
+      lcd.print(msg.substring(0, 16));
+
+      delay(300);
     }
 
-    if(digitalRead(RedTwo)==HIGH){
+    if (digitalRead(RedTwo) == HIGH) {
       Serial.println("forward");
+
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("spotify");     
+      lcd.print("Forward         ");
+
+      delay(100);
+
+      String msg = "";
+      unsigned long start = millis();
+      while (millis() - start < 1000) {
+        if (Serial.available()) {
+          msg = Serial.readStringUntil('\n');
+          break;
+        }
+      }
+
       lcd.setCursor(0, 1);
-      lcd.print("Going Forward");
-      delay(50);
-      
+      lcd.print("                ");
+      lcd.setCursor(0, 1);
+      lcd.print(msg.substring(0, 16));
+
+      delay(300);
     }
+
 
     
     if(digitalRead(Green)== HIGH){
