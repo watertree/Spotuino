@@ -133,9 +133,16 @@ void loop() {
   else{
 
     if (digitalRead(Yellow) == HIGH) {
-      Serial.println("play_pause");
+      while (Serial.available()) Serial.read();  // clear previous junk
 
-      delay(100);
+      Serial.println("play_pause");  // or "forward", etc.
+
+      unsigned long waitStart = millis();
+      while (!Serial.available() && millis() - waitStart < 300) {
+        delay(5);  // wait up to 300ms for Python response
+      }
+
+      delay(160);
       String msg = "";
       unsigned long start = millis();
       while (millis() - start < 1000) {
@@ -159,9 +166,16 @@ void loop() {
     }
 
     if (digitalRead(RedOne) == HIGH) {
-      Serial.println("back");
+      while (Serial.available()) Serial.read();  // clear previous junk
 
-      delay(100);
+      Serial.println("back");  // or "forward", etc.
+
+      unsigned long waitStart = millis();
+      while (!Serial.available() && millis() - waitStart < 300) {
+        delay(5);  // wait up to 300ms for Python response
+      }
+
+      delay(160);
       String msg = "";
       unsigned long start = millis();
       while (millis() - start < 1000) {
@@ -185,9 +199,15 @@ void loop() {
     }
 
     if (digitalRead(RedTwo) == HIGH) {
-      Serial.println("forward");
+      while (Serial.available()) Serial.read();  // clear previous junk
 
-      delay(100);
+      Serial.println("forward");  // or "forward", etc.
+
+      unsigned long waitStart = millis();
+      while (!Serial.available() && millis() - waitStart < 300) {
+        delay(5);  // wait up to 300ms for Python response
+      }
+
       String msg = "";
       unsigned long start = millis();
       while (millis() - start < 1000) {
